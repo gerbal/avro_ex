@@ -4,7 +4,7 @@ defmodule AvroExV0.Mixfile do
   def project do
     [
       app: :avro_ex_v0,
-      version: "0.1.0-beta.6",
+      version: "0.1.0-beta.6.1",
       elixir: "~> 1.6",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
