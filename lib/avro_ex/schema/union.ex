@@ -1,9 +1,9 @@
-defmodule AvroEx.Schema.Union do
+defmodule AvroExV0.Schema.Union do
   use Ecto.Schema
   import Ecto.Changeset
 
-  alias AvroEx.{Error, Schema, Term}
-  alias AvroEx.Schema.Context
+  alias AvroExV0.{Error, Schema, Term}
+  alias AvroExV0.Schema.Context
 
   @primary_key false
   @required_fields [:possibilities]

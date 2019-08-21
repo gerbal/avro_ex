@@ -1,16 +1,16 @@
-defmodule AvroEx.Mixfile do
+defmodule AvroExV0.Mixfile do
   use Mix.Project
 
   def project do
     [
-      app: :avro_ex,
+      app: :avro_ex_v0,
       version: "0.1.0-beta.6",
       elixir: "~> 1.6",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       package: package(),
-      description: "A pure-elixir avro encoding/decoding library",
+      description: "Old version of AvroEx for legacy support",
       deps: deps()
     ]
   end
@@ -35,8 +35,8 @@ defmodule AvroEx.Mixfile do
   defp package do
     [
       licenses: ["MIT"],
-      maintainers: ["cjpoll@gmail.com"],
-      links: %{"Github" => "http://github.com/cjpoll/avro_ex"}
+      maintainers: ["grant.mclendon@7mind.de"],
+      links: %{"Github" => "http://github.com/gerbal/avro_ex/tree/v0"}
     ]
   end
 end

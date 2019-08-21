@@ -1,10 +1,10 @@
-defmodule AvroEx.Schema.Fixed do
+defmodule AvroExV0.Schema.Fixed do
   use Ecto.Schema
-  require AvroEx.Schema.Macros, as: SchemaMacros
+  require AvroExV0.Schema.Macros, as: SchemaMacros
 
   import Ecto.Changeset
-  alias AvroEx.Schema.Context
-  alias AvroEx.Schema
+  alias AvroExV0.Schema.Context
+  alias AvroExV0.Schema
 
   embedded_schema do
     field(:aliases, {:array, :string}, default: [])

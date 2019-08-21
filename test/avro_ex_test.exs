@@ -1,7 +1,7 @@
-defmodule AvroEx.Schema.Primitive.Test do
+defmodule AvroExV0.Schema.Primitive.Test do
   use ExUnit.Case
 
-  @test_module AvroEx.Schema.Primitive
+  @test_module AvroExV0.Schema.Primitive
 
   describe "string" do
     test "simple string" do
@@ -91,8 +91,8 @@ defmodule AvroEx.Schema.Primitive.Test do
     end
   end
 
-  alias AvroEx.Schema
-  alias AvroEx.Schema.{Primitive, Record, Record.Field, Union}
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.{Primitive, Record, Record.Field, Union}
 
   describe "lookup" do
     test "looks up a named type" do
@@ -124,9 +124,9 @@ defmodule AvroEx.Schema.Primitive.Test do
                     } = record
                   ]
                 }
-              } = schema} = AvroEx.parse_schema(schema_json)
+              } = schema} = AvroExV0.parse_schema(schema_json)
 
-      assert AvroEx.named_type(type, schema) == record
+      assert AvroExV0.named_type(type, schema) == record
     end
   end
 
@@ -160,15 +160,15 @@ defmodule AvroEx.Schema.Primitive.Test do
                     }
                   ]
                 }
-              } = schema} = AvroEx.parse_schema(schema_json)
+              } = schema} = AvroExV0.parse_schema(schema_json)
 
       data = %{
         "value" => 25,
         "next" => %{"value" => 23, "next" => %{"value" => 20, "next" => nil}}
       }
 
-      assert {:ok, avro} = AvroEx.encode(schema, data)
-      assert {:ok, ^data} = AvroEx.decode(schema, avro)
+      assert {:ok, avro} = AvroExV0.encode(schema, data)
+      assert {:ok, ^data} = AvroExV0.decode(schema, avro)
     end
   end
 end

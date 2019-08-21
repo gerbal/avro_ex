@@ -1,10 +1,10 @@
-defmodule AvroEx.Schema.Record.Field do
+defmodule AvroExV0.Schema.Record.Field do
   use Ecto.Schema
   import Ecto.Changeset
 
   alias Ecto.Changeset
-  alias AvroEx.{Schema, Term}
-  alias AvroEx.Schema.Context
+  alias AvroExV0.{Schema, Term}
+  alias AvroExV0.Schema.Context
 
   embedded_schema do
     field(:name, :string)
@@ -41,14 +41,14 @@ defmodule AvroEx.Schema.Record.Field do
   end
 end
 
-defmodule AvroEx.Schema.Record do
+defmodule AvroExV0.Schema.Record do
   use Ecto.Schema
-  require AvroEx.Schema.Macros, as: SchemaMacros
+  require AvroExV0.Schema.Macros, as: SchemaMacros
 
   import Ecto.Changeset
   alias __MODULE__.Field
-  alias AvroEx.{Schema}
-  alias AvroEx.Schema.Context
+  alias AvroExV0.{Schema}
+  alias AvroExV0.Schema.Context
 
   embedded_schema do
     field(:aliases, {:array, :string}, default: [])

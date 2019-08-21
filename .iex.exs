@@ -1,2 +1,2 @@
-alias AvroEx.Schema
-alias AvroEx.Schema.{Context, Primitive}
+alias AvroExV0.Schema
+alias AvroExV0.Schema.{Context, Primitive}

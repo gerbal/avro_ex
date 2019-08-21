@@ -1,13 +1,13 @@
-defmodule AvroEx.Schema.Record.Test do
+defmodule AvroExV0.Schema.Record.Test do
   use ExUnit.Case
 
-  import AvroEx.Error
+  import AvroExV0.Error
 
-  alias AvroEx.Schema
-  alias AvroEx.Schema.Primitive
-  alias AvroEx.Schema.Record.Field
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.Primitive
+  alias AvroExV0.Schema.Record.Field
 
-  @test_module AvroEx.Schema.Record
+  @test_module AvroExV0.Schema.Record
 
   @valid_record %{
     "type" => "record",

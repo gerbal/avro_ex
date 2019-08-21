@@ -1,9 +1,9 @@
-defmodule AvroEx.Schema.Record.Field.Test do
+defmodule AvroExV0.Schema.Record.Field.Test do
   use ExUnit.Case
-  import AvroEx.Error
+  import AvroExV0.Error
   alias Ecto.Changeset
 
-  @test_module AvroEx.Schema.Record.Field
+  @test_module AvroExV0.Schema.Record.Field
 
   describe "changeset" do
     @schema %{

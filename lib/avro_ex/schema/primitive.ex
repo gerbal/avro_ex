@@ -1,4 +1,4 @@
-defmodule AvroEx.Schema.Primitive do
+defmodule AvroExV0.Schema.Primitive do
   use Ecto.Schema
   @behaviour Ecto.Type
   @primary_key false

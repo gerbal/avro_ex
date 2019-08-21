@@ -1,4 +1,4 @@
-defmodule AvroEx.Validation do
+defmodule AvroExV0.Validation do
   alias Ecto.Changeset
 
   def validate_string(changeset, field) do

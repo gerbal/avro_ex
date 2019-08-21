@@ -1,4 +1,4 @@
-defmodule AvroEx.Schema.Test.Macros do
+defmodule AvroExV0.Schema.Test.Macros do
   defmacro handles_metadata do
     quote do
       test "has a default empty metadata" do
@@ -17,13 +17,13 @@ defmodule AvroEx.Schema.Test.Macros do
   defmacro cast(passed_in_type, primitive_type) do
     quote do
       test "simple #{unquote(passed_in_type)}" do
-        assert {:ok, %AvroEx.Schema.Primitive{type: unquote(primitive_type)}} =
+        assert {:ok, %AvroExV0.Schema.Primitive{type: unquote(primitive_type)}} =
                  @test_module.cast(unquote(passed_in_type))
       end
 
       test "complex #{unquote(passed_in_type)}" do
         assert {:ok,
-                %AvroEx.Schema.Primitive{
+                %AvroExV0.Schema.Primitive{
                   type: unquote(primitive_type),
                   metadata: %{"some" => "metadata"}
                 }} = @test_module.cast(%{"type" => unquote(passed_in_type), "some" => "metadata"})
@@ -31,7 +31,7 @@ defmodule AvroEx.Schema.Test.Macros do
 
       test "complex #{unquote(passed_in_type)} with metadata" do
         assert {:ok,
-                %AvroEx.Schema.Primitive{
+                %AvroExV0.Schema.Primitive{
                   type: unquote(primitive_type),
                   metadata: %{"some" => "metadata"}
                 }} = @test_module.cast(%{"type" => unquote(passed_in_type), "some" => "metadata"})
@@ -44,27 +44,27 @@ defmodule AvroEx.Schema.Test.Macros do
       test "simple #{unquote(passed_in_type)}" do
         assert {:ok,
                 %@test_module{
-                  schema: %AvroEx.Schema.Primitive{type: unquote(primitive_type)},
-                  context: %AvroEx.Schema.Context{names: %{}}
+                  schema: %AvroExV0.Schema.Primitive{type: unquote(primitive_type)},
+                  context: %AvroExV0.Schema.Context{names: %{}}
                 }} = @test_module.parse(~s("#{unquote(passed_in_type)}"))
       end
 
       test "complex #{unquote(passed_in_type)}" do
         assert {:ok,
                 %@test_module{
-                  schema: %AvroEx.Schema.Primitive{type: unquote(primitive_type)},
-                  context: %AvroEx.Schema.Context{names: %{}}
+                  schema: %AvroExV0.Schema.Primitive{type: unquote(primitive_type)},
+                  context: %AvroExV0.Schema.Context{names: %{}}
                 }} = @test_module.parse(~s({"type": "#{unquote(passed_in_type)}"}))
       end
 
       test "complex #{unquote(passed_in_type)} with metadata" do
         assert {:ok,
                 %@test_module{
-                  schema: %AvroEx.Schema.Primitive{
+                  schema: %AvroExV0.Schema.Primitive{
                     type: unquote(primitive_type),
                     metadata: %{"some" => "metadata"}
                   },
-                  context: %AvroEx.Schema.Context{names: %{}}
+                  context: %AvroExV0.Schema.Context{names: %{}}
                 }} =
                  @test_module.parse(
                    ~s({"type": "#{unquote(passed_in_type)}", "some": "metadata"})
@@ -74,19 +74,19 @@ defmodule AvroEx.Schema.Test.Macros do
   end
 end
 
-defmodule AvroEx.Schema.Test do
+defmodule AvroExV0.Schema.Test do
   use ExUnit.Case
 
   require __MODULE__.Macros
   import __MODULE__.Macros
 
-  alias AvroEx.Schema
-  alias AvroEx.Schema.{Array, Context, Primitive, Record, Union}
-  alias AvroEx.Schema.Map, as: AvroMap
-  alias AvroEx.Schema.Enum, as: AvroEnum
-  alias AvroEx.Schema.Record.Field
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.{Array, Context, Primitive, Record, Union}
+  alias AvroExV0.Schema.Map, as: AvroMap
+  alias AvroExV0.Schema.Enum, as: AvroEnum
+  alias AvroExV0.Schema.Record.Field
 
-  @test_module AvroEx.Schema
+  @test_module AvroExV0.Schema
 
   describe "cast" do
     cast(nil, nil)
@@ -155,7 +155,7 @@ defmodule AvroEx.Schema.Test do
   """
 
   describe "parse record" do
-    @schema AvroEx.Schema.Record
+    @schema AvroExV0.Schema.Record
 
     test "works" do
       child_record = %@schema{
@@ -215,7 +215,7 @@ defmodule AvroEx.Schema.Test do
   describe "parse union" do
     test "primitives" do
       assert {:ok,
-              %AvroEx.Schema{
+              %AvroExV0.Schema{
                 schema: %Union{
                   possibilities: [
                     %Primitive{type: nil},
@@ -274,7 +274,7 @@ defmodule AvroEx.Schema.Test do
         }
       }
 
-      {:ok, %AvroEx.Schema{} = schema} = @test_module.parse(~s(["null", #{@json}]))
+      {:ok, %AvroExV0.Schema{} = schema} = @test_module.parse(~s(["null", #{@json}]))
 
       assert ^context = schema.context
 
@@ -294,7 +294,7 @@ defmodule AvroEx.Schema.Test do
       """
 
       assert {:ok,
-              %AvroEx.Schema{
+              %AvroExV0.Schema{
                 schema: %Record{
                   fields: [
                     %Field{
@@ -322,12 +322,12 @@ defmodule AvroEx.Schema.Test do
       assert {:ok,
               %@test_module{
                 schema: %@schema{}
-              }} = AvroEx.parse_schema(@json)
+              }} = AvroExV0.parse_schema(@json)
     end
 
     test "matches the given type" do
       assert {:ok, %@test_module{schema: %@schema{values: %Primitive{type: :integer}}}} =
-               AvroEx.parse_schema(@json)
+               AvroExV0.parse_schema(@json)
     end
 
     test "works with a union" do
@@ -344,7 +344,7 @@ defmodule AvroEx.Schema.Test do
               }} =
                @json
                |> json_add_property(:values, ["null", "int"])
-               |> AvroEx.parse_schema()
+               |> AvroExV0.parse_schema()
     end
   end
 
@@ -383,22 +383,22 @@ defmodule AvroEx.Schema.Test do
     end
 
     test "does not accept non-utf8 strings as string" do
-      {:ok, schema} = AvroEx.parse_schema(~S("string"))
+      {:ok, schema} = AvroExV0.parse_schema(~S("string"))
       refute @test_module.encodable?(schema, <<128>>)
     end
 
     test "does accept non-utf8 binaries as bytes" do
-      {:ok, schema} = AvroEx.parse_schema(~S("bytes"))
+      {:ok, schema} = AvroExV0.parse_schema(~S("bytes"))
       assert @test_module.encodable?(schema, <<128>>)
     end
 
     test "does not accept non-binary bitstrings as string" do
-      {:ok, schema} = AvroEx.parse_schema(~S("string"))
+      {:ok, schema} = AvroExV0.parse_schema(~S("string"))
       refute @test_module.encodable?(schema, <<0::7>>)
     end
 
     test "does not accept non-binary bitstrings as bytes" do
-      {:ok, schema} = AvroEx.parse_schema(~S("bytes"))
+      {:ok, schema} = AvroExV0.parse_schema(~S("bytes"))
       refute @test_module.encodable?(schema, <<0::7>>)
     end
   end
@@ -406,21 +406,21 @@ defmodule AvroEx.Schema.Test do
   describe "parse (enum)" do
     test "doesn't blow up" do
       assert {:ok, _enum_schema} =
-               AvroEx.parse_schema(
+               AvroExV0.parse_schema(
                  ~S({"type": "enum", "name": "Suit", "symbols": ["heart", "spade", "diamond", "club"]})
                )
     end
 
     test "returns an Enum struct" do
       assert {:ok, %Schema{schema: %AvroEnum{}}} =
-               AvroEx.parse_schema(
+               AvroExV0.parse_schema(
                  ~S({"type": "enum", "name": "Suit", "symbols": ["heart", "spade", "diamond", "club"]})
                )
     end
 
     test "fails if the symbols aren't all strings" do
       assert {:ok, %Schema{schema: %AvroEnum{}}} =
-               AvroEx.parse_schema(
+               AvroExV0.parse_schema(
                  ~S({"type": "enum", "name": "Suit", "symbols": ["heart", "spade", "diamond", "club"]})
                )
     end
@@ -539,79 +539,79 @@ defmodule AvroEx.Schema.Test do
 
   describe "encodable? (map)" do
     test "works as expected" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": "int"}))
       assert @test_module.encodable?(schema, %{"value" => 1, "value2" => 2, "value3" => 3})
     end
 
     test "fails if key is not a string" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": "int"}))
       refute @test_module.encodable?(schema, %{1 => 1})
     end
 
     test "fails if value does not match type" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": "int"}))
       refute @test_module.encodable?(schema, %{"value" => 1.1})
     end
 
     test "fails if one value does not match type" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": "int"}))
       refute @test_module.encodable?(schema, %{"value" => 11, "value2" => 12, "value3" => 1.1})
     end
 
     test "works with a union" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": ["null", "int"]}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": ["null", "int"]}))
       assert @test_module.encodable?(schema, %{"value" => 1, "value2" => 2, "value3" => nil})
       refute @test_module.encodable?(schema, %{"value" => 1, "value2" => 2.1, "value3" => nil})
     end
 
     test "works with an empty map" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "map", "values": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "map", "values": "int"}))
       assert @test_module.encodable?(schema, %{})
     end
   end
 
   describe "encodable? (array)" do
     test "works as expected" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "array", "items": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "array", "items": "int"}))
       assert @test_module.encodable?(schema, [1, 2, 3, 4, 5])
     end
 
     test "fails if item does not match type" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "array", "items": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "array", "items": "int"}))
       refute @test_module.encodable?(schema, [1.1])
     end
 
     test "fails if one item does not match type" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "array", "items": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "array", "items": "int"}))
       refute @test_module.encodable?(schema, [1, 2, 3, 4.5, 6])
     end
 
     test "works with a union" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "array", "items": ["null", "int"]}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "array", "items": ["null", "int"]}))
       assert @test_module.encodable?(schema, [1, 2, nil, 3, 4, nil, 5])
       assert @test_module.encodable?(schema, [nil, 2, nil, 3, 4, nil, 5])
       refute @test_module.encodable?(schema, [1, 2.1, nil])
     end
 
     test "works with an empty array" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "array", "items": "int"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "array", "items": "int"}))
       assert @test_module.encodable?(schema, [])
     end
   end
 
   describe "encodable? (fixed)" do
     test "works as expected" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "fixed", "name": "SHA", "size": "40"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "fixed", "name": "SHA", "size": "40"}))
       assert @test_module.encodable?(schema, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     end
 
     test "fails if size is too small" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "fixed", "size": "40", "name": "SHA"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "fixed", "size": "40", "name": "SHA"}))
       refute @test_module.encodable?(schema, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     end
 
     test "fails if size is too large" do
-      {:ok, schema} = AvroEx.parse_schema(~S({"type": "fixed", "size": "40", "name": "SHA"}))
+      {:ok, schema} = AvroExV0.parse_schema(~S({"type": "fixed", "size": "40", "name": "SHA"}))
       refute @test_module.encodable?(schema, "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa")
     end
   end
@@ -619,7 +619,7 @@ defmodule AvroEx.Schema.Test do
   describe "encodable? (enum)" do
     test "works as expected" do
       {:ok, schema} =
-        AvroEx.parse_schema(
+        AvroExV0.parse_schema(
           ~S({"type": "enum", "name": "Suit", "symbols": ["heart", "spade", "diamond", "club"]})
         )
 
@@ -628,7 +628,7 @@ defmodule AvroEx.Schema.Test do
 
     test "fails if string is not in symbols" do
       {:ok, schema} =
-        AvroEx.parse_schema(
+        AvroExV0.parse_schema(
           ~S({"type": "enum", "name": "Suit", "symbols": ["heart", "spade", "diamond", "club"]})
         )
 

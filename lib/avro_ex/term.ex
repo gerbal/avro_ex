@@ -1,4 +1,4 @@
-defmodule AvroEx.Term do
+defmodule AvroExV0.Term do
   @behaviour Ecto.Type
 
   def cast(type), do: {:ok, type}

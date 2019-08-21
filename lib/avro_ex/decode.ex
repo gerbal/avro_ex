@@ -1,8 +1,8 @@
-defmodule AvroEx.Decode do
+defmodule AvroExV0.Decode do
   require Bitwise
-  alias AvroEx.Schema
-  alias AvroEx.Schema.{Array, Context, Fixed, Primitive, Record, Union}
-  alias AvroEx.Schema.Record.Field
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.{Array, Context, Fixed, Primitive, Record, Union}
+  alias AvroExV0.Schema.Record.Field
 
   @type reason :: term
 
@@ -178,9 +178,9 @@ defmodule AvroEx.Decode do
     {Enum.reverse(decoded_items), rest}
   end
 
-  def do_decode(%AvroEx.Schema.Map{}, _context, <<0>>), do: {%{}, ""}
+  def do_decode(%AvroExV0.Schema.Map{}, _context, <<0>>), do: {%{}, ""}
 
-  def do_decode(%AvroEx.Schema.Map{values: value_schema}, %Context{} = context, data)
+  def do_decode(%AvroExV0.Schema.Map{values: value_schema}, %Context{} = context, data)
       when is_binary(data) do
     {count, buffer} = do_decode(%Primitive{type: :long}, context, data)
     string_schema = %Primitive{type: :string}
@@ -195,7 +195,7 @@ defmodule AvroEx.Decode do
     {Map.new(decoded_values), rest}
   end
 
-  def do_decode(%AvroEx.Schema.Enum{symbols: symbols}, %Context{} = context, data)
+  def do_decode(%AvroExV0.Schema.Enum{symbols: symbols}, %Context{} = context, data)
       when is_binary(data) do
     {index, rest} = do_decode(%Primitive{type: :long}, context, data)
     {:lists.nth(index + 1, symbols), rest}

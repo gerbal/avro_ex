@@ -1,8 +1,8 @@
-defmodule AvroEx.Schema.Enum do
+defmodule AvroExV0.Schema.Enum do
   use Ecto.Schema
-  require AvroEx.Schema.Macros, as: SchemaMacros
-  alias AvroEx.Schema
-  alias AvroEx.Schema.Context
+  require AvroExV0.Schema.Macros, as: SchemaMacros
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.Context
   import Ecto.Changeset
 
   @primary_key false

@@ -1,4 +1,4 @@
-defmodule AvroEx do
+defmodule AvroExV0 do
   @moduledoc """
   The main interface for the library. Supports parsing schemas, encoding data,
   and decoding data.
@@ -18,8 +18,8 @@ defmodule AvroEx do
   | Record | map |
   | Enum | String (corresponding to the enum's symbol list) |
   """
-  alias AvroEx.Schema
-  alias AvroEx.Schema.Context
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.Context
 
   @type encoded_avro :: binary
 
@@ -27,7 +27,7 @@ defmodule AvroEx do
   Checks to see if the given data is encodable using the given schema. Great in
   unit tests.
   """
-  defdelegate encodable?(schema, data), to: AvroEx.Schema
+  defdelegate encodable?(schema, data), to: AvroExV0.Schema
 
   @spec parse_schema(Schema.json_schema()) ::
           {:ok, Schema.t()}
@@ -43,7 +43,7 @@ defmodule AvroEx do
 
   @spec parse_schema!(Schema.json_schema()) :: Schema.t() | no_return
   @doc """
-  Same as `AvroEx.parse_schema/1`, but raises an exception on failure instead of
+  Same as `AvroExV0.parse_schema/1`, but raises an exception on failure instead of
   returning an error tuple.
   """
   def parse_schema!(json_schema) do
@@ -60,9 +60,9 @@ defmodule AvroEx do
   @spec encode(Schema.t(), term) ::
           {:ok, encoded_avro}
           | {:error, :unmatching_schema}
-          | {:error, AvroEx.Encode.reason(), term}
+          | {:error, AvroExV0.Encode.reason(), term}
   def encode(schema, data) do
-    AvroEx.Encode.encode(schema, data)
+    AvroExV0.Encode.encode(schema, data)
   end
 
   @doc """
@@ -70,9 +70,9 @@ defmodule AvroEx do
   """
   @spec decode(Schema.t(), encoded_avro) ::
           {:ok, term}
-          | {:error, AvroEx.Decode.reason()}
+          | {:error, AvroExV0.Decode.reason()}
   def decode(schema, message) do
-    AvroEx.Decode.decode(schema, message)
+    AvroExV0.Decode.decode(schema, message)
   end
 
   @spec named_type(Schema.full_name(), Schema.t() | Context.t()) :: nil | Schema.schema_types()

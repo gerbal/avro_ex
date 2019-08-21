@@ -1,10 +1,10 @@
-defmodule AvroEx.Schema.Context.Test do
+defmodule AvroExV0.Schema.Context.Test do
   use ExUnit.Case
 
-  alias AvroEx.Schema.Record
-  alias AvroEx.Schema.Record.Field
+  alias AvroExV0.Schema.Record
+  alias AvroExV0.Schema.Record.Field
 
-  @test_module AvroEx.Schema.Context
+  @test_module AvroExV0.Schema.Context
 
   describe "add_schema" do
     test "adds the fully qualified record name to the index" do

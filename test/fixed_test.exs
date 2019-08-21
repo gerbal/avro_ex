@@ -1,8 +1,8 @@
-defmodule AvroEx.Schema.Fixed.Test do
+defmodule AvroExV0.Schema.Fixed.Test do
   use ExUnit.Case
-  # import AvroEx.Error
+  # import AvroExV0.Error
 
-  @test_module AvroEx.Schema.Fixed
+  @test_module AvroExV0.Schema.Fixed
 
   @valid_params %{
     "type" => "fixed",

@@ -1,4 +1,4 @@
-defmodule AvroEx.Error do
+defmodule AvroExV0.Error do
   def errors(%Ecto.Changeset{} = cs, field) do
     cs.errors
     |> Keyword.get_values(field)

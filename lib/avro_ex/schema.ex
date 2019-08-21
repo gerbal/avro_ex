@@ -1,19 +1,19 @@
-defmodule AvroEx.Schema.Macros do
+defmodule AvroExV0.Schema.Macros do
   defmacro cast_schema(data_fields: fields) do
     quote do
       def cast(data) do
-        AvroEx.Schema.cast_schema(__MODULE__, data, unquote(fields))
+        AvroExV0.Schema.cast_schema(__MODULE__, data, unquote(fields))
       end
     end
   end
 end
 
-defmodule AvroEx.Schema do
-  alias AvroEx.{Schema, Error}
-  alias AvroEx.Schema.{Array, Context, Fixed, Primitive, Record, Union}
-  alias AvroEx.Schema.Enum, as: AvroEnum
-  alias AvroEx.Schema.Map, as: AvroMap
-  alias AvroEx.Schema.Record.Field
+defmodule AvroExV0.Schema do
+  alias AvroExV0.{Schema, Error}
+  alias AvroExV0.Schema.{Array, Context, Fixed, Primitive, Record, Union}
+  alias AvroExV0.Schema.Enum, as: AvroEnum
+  alias AvroExV0.Schema.Map, as: AvroMap
+  alias AvroExV0.Schema.Record.Field
 
   defstruct [:context, :schema]
 

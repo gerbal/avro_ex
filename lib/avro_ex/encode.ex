@@ -1,14 +1,14 @@
-defmodule AvroEx.Encode do
+defmodule AvroExV0.Encode do
   require Bitwise
-  alias AvroEx.Schema
-  alias AvroEx.Schema.{Array, Context, Fixed, Map, Primitive, Record, Union}
-  alias AvroEx.Schema.Enum, as: AvroEnum
-  alias AvroEx.Schema.Record.Field
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.{Array, Context, Fixed, Map, Primitive, Record, Union}
+  alias AvroExV0.Schema.Enum, as: AvroEnum
+  alias AvroExV0.Schema.Record.Field
 
   @type reason :: term
 
   @spec encode(Schema.t(), term) ::
-          {:ok, AvroEx.encoded_avro()}
+          {:ok, AvroExV0.encoded_avro()}
           | {:error, :data_does_not_match_schema, term, Schema.t()}
           | {:error, reason}
           | {:error, reason, term}

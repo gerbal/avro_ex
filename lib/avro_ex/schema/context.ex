@@ -1,8 +1,8 @@
-defmodule AvroEx.Schema.Context do
-  alias AvroEx.Schema
-  alias AvroEx.Schema.{Array, Fixed, Primitive, Record, Union}
-  alias AvroEx.Schema.Enum, as: AvroEnum
-  alias AvroEx.Schema.Record.Field
+defmodule AvroExV0.Schema.Context do
+  alias AvroExV0.Schema
+  alias AvroExV0.Schema.{Array, Fixed, Primitive, Record, Union}
+  alias AvroExV0.Schema.Enum, as: AvroEnum
+  alias AvroExV0.Schema.Record.Field
 
   defstruct names: %{}
 
@@ -12,7 +12,7 @@ defmodule AvroEx.Schema.Context do
 
   def add_schema(%__MODULE__{} = context, %Primitive{}), do: context
 
-  def add_schema(%__MODULE__{} = context, %AvroEx.Schema.Map{values: values}),
+  def add_schema(%__MODULE__{} = context, %AvroExV0.Schema.Map{values: values}),
     do: add_schema(context, values)
 
   def add_schema(%__MODULE__{} = context, %Array{items: items}), do: add_schema(context, items)

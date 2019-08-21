@@ -1,11 +1,11 @@
-defmodule AvroEx.Validation.Test do
+defmodule AvroExV0.Validation.Test do
   use ExUnit.Case
 
-  import AvroEx.Error
-  alias AvroEx.Schema.Record
+  import AvroExV0.Error
+  alias AvroExV0.Schema.Record
   alias Ecto.Changeset
 
-  @test_module AvroEx.Validation
+  @test_module AvroExV0.Validation
 
   describe "validate_string" do
     cs =

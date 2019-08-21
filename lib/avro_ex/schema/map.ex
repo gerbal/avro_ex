@@ -1,8 +1,8 @@
-defmodule AvroEx.Schema.Map do
+defmodule AvroExV0.Schema.Map do
   use Ecto.Schema
-  require AvroEx.Schema.Macros, as: SchemaMacros
-  alias AvroEx.{Schema, Term}
-  alias AvroEx.Schema.{Context, Primitive}
+  require AvroExV0.Schema.Macros, as: SchemaMacros
+  alias AvroExV0.{Schema, Term}
+  alias AvroExV0.Schema.{Context, Primitive}
   alias Ecto.Changeset
   import Ecto.Changeset
 
