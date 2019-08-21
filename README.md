@@ -1,4 +1,4 @@
-# ⚠️ OUT OF DATE FOR LEGACY COMPATIBILITY ⚠️
+# ⚠️ Out of Date ⚠️
 
 This hex package `avro_ex_v0` exists for legacy compatibility with
 incorrect patters for serializing/deserializing avro schemas as implemented
