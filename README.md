@@ -1,4 +1,4 @@
-# ⚠️ OUT OF DATE FOR LEGACY COMPATIBILITY ⚠️
+# ⚠️ Old Version of AvroEx only for Legacy Compatibility ⚠️
 
 This hex package `avro_ex_v0` exists for legacy compatibility with
 incorrect patters for serializing/deserializing avro schemas as implemented
